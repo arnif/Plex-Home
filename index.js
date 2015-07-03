@@ -57,7 +57,7 @@ function analyze(watching) {
 
 
 function toggleLight(state) {
-  request.post('http://' + HUE_SERVICE_IP + ':' + HUE_SERVICE_PORT + '/' + state, function (error, response, body) {
+  request.get('http://' + HUE_SERVICE_IP + ':' + HUE_SERVICE_PORT + '/' + state, function (error, response, body) {
     console.log(response);
       if (!error && response.statusCode == 200) {
         console.log(body) // Show the HTML for the Google homepage.
