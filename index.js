@@ -1,11 +1,11 @@
 var PlexAPI = require("plex-api");
-var client = new PlexAPI("10.0.1.10");
 var request = require('request');
 
-var HUE_SERVICE_IP = 'localhost';
-var HUE_SERVICE_PORT = '3000';
+var HUE_SERVICE_IP = process.env.HUE_SERVICE_IP;
+var HUE_SERVICE_PORT = process.env.HUE_SERVICE_PORT;
+var client = new PlexAPI(process.env.PLEX_SERVER_IP);
 
-var isLightOn = false;
+var isLightOn = true;
 
 setInterval(function() {
   client.query("/status/sessions").then(function (result) {
@@ -30,7 +30,7 @@ setInterval(function() {
 },1000);
 
 function analyze(watching) {
-
+  console.log('analize');
   watching._children.map(function(ll) {
     console.log(ll.title);
     if (ll.title === 'Xbox-SystemOS' || ll.title === 'Apple TV') {
@@ -50,7 +50,6 @@ function analyze(watching) {
         return;
       }
     }
-
   })
 }
 
@@ -58,5 +57,5 @@ function analyze(watching) {
 function toggleLight(state) {
   request.get('http://' + HUE_SERVICE_IP + ':' + HUE_SERVICE_PORT + '/' + state, function (error, response, body) {
     console.log(response);
-    })
+  });
 }
