@@ -32,8 +32,8 @@ setInterval(function() {
 function analyze(watching) {
 
   watching._children.map(function(ll) {
-    // console.log(ll);
-    if (ll.title === 'Xbox-SystemOS') {
+    console.log(ll.title);
+    if (ll.title === 'Xbox-SystemOS' || ll.title === 'Apple TV') {
       if (ll.state === 'playing') {
         console.log('playing');
         if (isLightOn) {
@@ -47,7 +47,6 @@ function analyze(watching) {
             toggleLight('on');
             isLightOn = true;
         }
-
         return;
       }
     }
@@ -59,8 +58,5 @@ function analyze(watching) {
 function toggleLight(state) {
   request.get('http://' + HUE_SERVICE_IP + ':' + HUE_SERVICE_PORT + '/' + state, function (error, response, body) {
     console.log(response);
-      if (!error && response.statusCode == 200) {
-        console.log(body) // Show the HTML for the Google homepage.
-      }
     })
 }
